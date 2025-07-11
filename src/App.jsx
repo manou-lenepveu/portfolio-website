@@ -1,6 +1,7 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
 import './index.css'
+import './App.css'
 
 function App() {
   return (
