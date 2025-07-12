@@ -14,9 +14,9 @@ const Home = () => {
               transition={{ duration: 0.6 }}
               className="space-y-6"
             >
-              <h1 className="text-4xl md:text-6xl font-bold text-primary-950">
+              <h1 className="text-4xl md:text-6xl font-bold text-slate-900">
                 Salut, je suis{' '}
-                <span className="text-accent-500">Alda Manou</span>
+                <span className="text-teal-500">Alda Manou</span>
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
                 Développeuse passionnée par la création d'expériences web modernes et intuitives. 
@@ -39,7 +39,7 @@ const Home = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="flex justify-center lg:justify-end"
             >
-              <div className="w-80 h-80 bg-gradient-to-br from-accent-400 to-accent-600 rounded-full flex items-center justify-center">
+              <div className="w-80 h-80 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center">
                 <div className="w-72 h-72 bg-gray-200 rounded-full flex items-center justify-center">
                   <span className="text-gray-500 text-lg">Photo de profil</span>
                 </div>
@@ -59,7 +59,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-950 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Projets Phares
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -77,25 +77,25 @@ const Home = () => {
                 viewport={{ once: true }}
                 className="card group cursor-pointer"
               >
-                <div className="h-48 bg-gradient-to-br from-accent-100 to-accent-200 rounded-lg mb-4 flex items-center justify-center">
-                  <span className="text-accent-600 font-medium">Projet {project}</span>
+                <div className="h-48 bg-gradient-to-br from-teal-100 to-teal-200 rounded-lg mb-4 flex items-center justify-center">
+                  <span className="text-teal-600 font-medium">Projet {project}</span>
                 </div>
-                <h3 className="text-xl font-semibold text-primary-950 mb-2">
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">
                   Nom du Projet {project}
                 </h3>
                 <p className="text-gray-600 mb-4">
                   Description courte du projet et des technologies utilisées.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-3 py-1 bg-accent-100 text-accent-700 rounded-full text-sm">
+                  <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">
                     React
                   </span>
-                  <span className="px-3 py-1 bg-accent-100 text-accent-700 rounded-full text-sm">
+                  <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">
                     Tailwind
                   </span>
                 </div>
                 <div className="flex gap-3">
-                  <button className="text-accent-500 hover:text-accent-600 font-medium">
+                  <button className="text-teal-500 hover:text-teal-600 font-medium">
                     Voir le projet
                   </button>
                   <button className="text-gray-500 hover:text-gray-600 font-medium">
@@ -118,7 +118,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-950 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Compétences
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -136,8 +136,8 @@ const Home = () => {
                 viewport={{ once: true }}
                 className="flex flex-col items-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
               >
-                <div className="w-16 h-16 bg-accent-100 rounded-lg flex items-center justify-center mb-3">
-                  <span className="text-accent-600 font-bold text-lg">
+                <div className="w-16 h-16 bg-teal-100 rounded-lg flex items-center justify-center mb-3">
+                  <span className="text-teal-600 font-bold text-lg">
                     {skill.charAt(0)}
                   </span>
                 </div>
