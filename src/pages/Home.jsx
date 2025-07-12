@@ -1,4 +1,8 @@
 import { motion } from 'framer-motion';
+import Hero from '../components/sections/Hero';
+import FeaturedProjects from '../components/sections/FeaturedProjects';
+import Skills from '../components/sections/Skills';
+import CallToAction from '../components/sections/CallToAction';
 
 const Home = () => {
   return (
@@ -147,6 +151,10 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <Hero />
+      <FeaturedProjects />
+      <Skills />
+      <CallToAction />
     </div>
   );
 };
