@@ -1,37 +1,141 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --border: #1e1e1e;
+  --muted: #333;
+  --text-dim: #555;
+  --text-mid: #888;
+  --text: #c8c8c8;
+  --white: #f0ede8;
+  --accent: #e8d5b0;
+  --accent2: #7a6a52;
+  --mono: 'DM Mono', monospace;
+  --serif: 'Fraunces', serif;
+}
 
 /* définir ou personnaliser les styles de base */
 @layer base {
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
-    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.6;
   }
 }
 
-/* ajouter les propres classes réutilisables  */
-@layer components {
-  .btn-primary {
-    /* @apply est une fonctionnalité de Tailwind CSS qui permet de regrouper plusieurs classes utilitaires Tailwind dans une seule classe personnalisée. */
-    @apply bg-teal-500 hover:bg-teal-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105;
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .8s ease, transform .8s ease;
   }
-  
-  .btn-secondary {
-    @apply border-2 border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-300;
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
   }
-  
-  .card {
-    @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6;
+
+  .reveal-delay-1 {
+    transition-delay: .1s;
   }
-  
-  .section-padding {
-    @apply py-16 px-4 sm:px-6 lg:px-8;
+
+  .reveal-delay-2 {
+    transition-delay: .2s;
+  }
+
+  .reveal-delay-3 {
+    transition-delay: .3s;
+  }
+
+  .reveal-delay-4 {
+    transition-delay: .4s;
+  }
+
+  @keyframes navShimmer {
+    from {
+      background-position: 200% 0;
+      opacity: 0;
+    }
+
+    to {
+      background-position: 0% 0;
+      opacity: 0.6;
+    }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scrollLine {
+    0% {
+      transform: scaleY(0);
+      transform-origin: top;
+    }
+
+    50% {
+      transform: scaleY(1);
+      transform-origin: top;
+    }
+
+    51% {
+      transform: scaleY(1);
+      transform-origin: bottom;
+    }
+
+    100% {
+      transform: scaleY(0);
+      transform-origin: bottom;
+    }
+  }
+
+  @keyframes pulse {
+
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(76, 175, 125, 0.4);
+    }
+
+    50% {
+      box-shadow: 0 0 0 6px rgba(76, 175, 125, 0);
+    }
   }
 }

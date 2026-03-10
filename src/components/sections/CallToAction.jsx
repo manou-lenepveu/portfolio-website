@@ -17,7 +17,7 @@ const CallToAction = () => {
               Prête à collaborer ?
             </h2>
             <p className="text-xl text-teal-100 max-w-2xl mx-auto leading-relaxed">
-              Je suis toujours ouverte à de nouveaux défis et opportunités. 
+              Je suis toujours ouverte à de nouveaux défis et opportunités.
               Discutons de votre prochain projet !
             </p>
           </div>

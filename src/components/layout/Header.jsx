@@ -1,95 +1,60 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();   // contient le chemin actuel
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const threshold = window.innerHeight * 0.8;
+      setIsVisible(window.scrollY > threshold);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = [
-    { name: 'Accueil', path: '/' },
-    { name: 'À Propos', path: '/about' },
-    { name: 'Projets', path: '/projects' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'À propos', path: '#about' },
+    { name: 'Projets', path: '#projects' },
+    { name: 'Contact', path: '#contact' },
   ];
 
-  const isActive = (path) => location.pathname === path;
-
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-slate-900">
-            Portfolio
-          </Link>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 md:px-12 py-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible
+          ? 'opacity-100 translate-y-0 border-b border-[var(--border)] bg-[rgba(10,10,10,0.80)] backdrop-blur-xl'
+          : 'opacity-0 -translate-y-full pointer-events-none'
+        }`}
+    >
+      {/* Shimmer effect on border */}
+      {isVisible && (
+        <div className="absolute bottom-[-1px] left-0 right-0 h-[1px] bg-[linear-gradient(90deg,transparent_0%,var(--accent2)_30%,var(--accent)_50%,var(--accent2)_70%,transparent_100%)] bg-[length:200%_100%] animate-[navShimmer_0.9s_ease_forwards] opacity-60" />
+      )}
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                  isActive(item.path)
-                    ? 'text-teal-500'
-                    : 'text-gray-600 hover:text-teal-500'
-                }`}
-              >
-                {item.name}
-                {isActive(item.path) && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-teal-500"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  />
-                )}
-              </Link>
-            ))}
-          </div>
+      <a href="#hero" className="font-['Fraunces'] text-lg italic text-[var(--white)] tracking-tight no-underline">
+        Alex.dev
+      </a>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-md text-gray-600 hover:text-teal-500 hover:bg-gray-100 transition-colors duration-200"
+      <ul className="flex gap-10 list-none">
+        {navItems.map((item, index) => (
+          <li
+            key={item.name}
+            style={{
+              transitionDelay: `${0.22 + index * 0.08}s`,
+            }}
+            className={`transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="md:hidden border-t border-gray-200 bg-white"
+            <a
+              href={item.path}
+              className="relative text-[var(--text-mid)] no-underline text-xs tracking-[0.12em] uppercase transition-colors duration-200 hover:text-[var(--white)] after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[1px] after:bg-[var(--accent)] after:transition-[width] after:duration-300 hover:after:w-full"
             >
-              <div className="py-4 space-y-2">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`block px-4 py-2 text-base font-medium transition-colors duration-200 ${
-                      isActive(item.path)
-                        ? 'text-teal-500 bg-teal-50'
-                        : 'text-gray-600 hover:text-teal-500 hover:bg-gray-50'
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
-    </header>
+              {item.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 };
 

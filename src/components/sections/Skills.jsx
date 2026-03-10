@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
-import { 
-  Code2, 
-  Palette, 
-  Database, 
-  Globe, 
-  Smartphone, 
+import {
+  Code2,
+  Palette,
+  Database,
+  Globe,
+  Smartphone,
   GitBranch,
   Terminal,
   Layers
@@ -63,7 +63,7 @@ const Skills = () => {
               <h3 className="text-2xl font-bold text-slate-900 mb-8 text-center">
                 {category.title}
               </h3>
-              
+
               <div className="space-y-6">
                 {category.skills.map((skill, skillIndex) => {
                   const Icon = skill.icon;
@@ -83,7 +83,7 @@ const Skills = () => {
                         <span className="font-medium text-slate-900 flex-1">{skill.name}</span>
                         <span className="text-sm text-gray-500">{skill.level}%</span>
                       </div>
-                      
+
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <motion.div
                           initial={{ width: 0 }}
@@ -112,7 +112,7 @@ const Skills = () => {
           <h3 className="text-2xl font-bold text-slate-900 mb-8 text-center">
             Autres Technologies
           </h3>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
             {[
               { name: "HTML5", emoji: "🌐" },
