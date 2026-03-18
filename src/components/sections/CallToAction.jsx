@@ -1,72 +1,63 @@
-import { motion } from 'framer-motion';
-import { Mail, MessageCircle, ArrowRight } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 
-const CallToAction = () => {
+const Contact = () => {
+  // animation de "révélation" au scroll
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.reveal').forEach((el) => {
+              el.classList.add('visible');
+            });
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="section-padding bg-gradient-to-r from-teal-500 to-teal-600">
-      <div className="max-w-4xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="space-y-8"
-        >
-          <div className="space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              Prête à collaborer ?
-            </h2>
-            <p className="text-xl text-teal-100 max-w-2xl mx-auto leading-relaxed">
-              Je suis toujours ouverte à de nouveaux défis et opportunités.
-              Discutons de votre prochain projet !
-            </p>
-          </div>
+    <section 
+      id="contact" 
+      ref={sectionRef}
+      className="px-6 md:px-12 py-32 md:py-48 border-t border-[var(--border)] text-center bg-[var(--bg)]"
+    >
+      {/* Label du haut */}
+      <span className="reveal inline-block text-[11px] tracking-[0.2em] uppercase text-[var(--accent)] mb-8">
+        Travaillons ensemble
+      </span>
+      
+      {/* Titre géant */}
+      <h2 className="reveal reveal-delay-1 font-['Fraunces'] text-[clamp(48px,8vw,112px)] font-light text-[var(--white)] tracking-[-0.04em] leading-[0.9] mb-12">
+        Disons-nous<br />
+        <em className="italic text-[var(--accent)]">bonjour.</em>
+      </h2>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <a
-              href="/contact"
-              className="inline-flex items-center gap-2 bg-white text-teal-600 px-8 py-3 rounded-lg font-medium hover:bg-gray-50 transition-all duration-300 group"
-            >
-              <Mail size={20} />
-              Me contacter
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
-            </a>
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 border-2 border-white text-white px-8 py-3 rounded-lg font-medium hover:bg-white hover:text-teal-600 transition-all duration-300"
-            >
-              <MessageCircle size={20} />
-              Discutons sur LinkedIn
-            </a>
-          </motion.div>
+      {/* Email */}
+      <a
+        href="mailto:votremail@exemple.com"
+        className="reveal reveal-delay-2 inline-block text-[var(--white)] no-underline font-['DM_Mono'] text-lg md:text-2xl tracking-[0.05em] border-b border-[var(--muted)] pb-2 transition-all duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)] mb-20"
+      >
+        lenepveumanou@gmail.com
+      </a>
 
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="pt-8 border-t border-teal-400"
-          >
-            <p className="text-teal-100 mb-2">Ou envoyez-moi directement un email</p>
-            <a
-              href="mailto:contact@example.com"
-              className="text-white font-medium hover:text-teal-100 transition-colors duration-200"
-            >
-              contact@example.com
-            </a>
-          </motion.div>
-        </motion.div>
+      {/* Socials */}
+      <div className="reveal reveal-delay-3 flex justify-center gap-10">
+        <a href="https://github.com/manou-lenepveu" className="text-[11px] tracking-[0.12em] uppercase text-[var(--text-dim)] no-underline transition-colors duration-200 hover:text-[var(--white)]">
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/manou-lenepveu-47306733b" className="text-[11px] tracking-[0.12em] uppercase text-[var(--text-dim)] no-underline transition-colors duration-200 hover:text-[var(--white)]">
+          LinkedIn
+        </a>
       </div>
     </section>
   );
 };
 
-export default CallToAction;
-
+export default Contact;
