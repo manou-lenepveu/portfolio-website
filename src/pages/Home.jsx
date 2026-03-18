@@ -6,7 +6,7 @@ import Contact from '../components/sections/CallToAction';
 const Home = () => {
   return (
     <div className="bg-[var(--bg)]">
-      {/* <Hero /> */}
+      <Hero />
       {/* <About /> */}
       {/* <Projects /> */}
       {/* <Contact /> */}

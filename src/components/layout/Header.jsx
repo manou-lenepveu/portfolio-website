@@ -33,7 +33,7 @@ const Header = () => {
       )}
 
       <a href="#hero" className="font-['Fraunces'] text-lg italic text-[var(--white)] tracking-tight no-underline">
-        Alex.dev
+        Manou.dev
       </a>
 
       <ul className="flex gap-10 list-none">
