@@ -1,147 +1,172 @@
-import { motion } from 'framer-motion';
-import {
-  Code2,
-  Palette,
-  Database,
-  Globe,
-  Smartphone,
-  GitBranch,
-  Terminal,
-  Layers
-} from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { Code2, Server, Layout as LayoutIcon, Terminal, ArrowUpRight } from 'lucide-react';
 
 const Skills = () => {
-  const skillCategories = [
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.reveal').forEach((el) => {
+              el.classList.add('visible');
+            });
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    const current = sectionRef.current;
+    if (current) observer.observe(current);
+    return () => {
+      if (current) observer.unobserve(current);
+    };
+  }, []);
+
+  const capabilities = [
     {
-      title: "Frontend",
-      skills: [
-        { name: "React", icon: Code2, level: 90, color: "bg-blue-500" },
-        { name: "JavaScript", icon: Terminal, level: 85, color: "bg-yellow-500" },
-        { name: "TypeScript", icon: Code2, level: 75, color: "bg-blue-600" },
-        { name: "Tailwind CSS", icon: Palette, level: 90, color: "bg-teal-500" },
-      ]
+      index: "01",
+      icon: LayoutIcon,
+      title: "Frontend & UI Design",
+      description:
+        "Création d'interfaces élégantes, ultra-réactives et centrées sur l'utilisateur. Respect scrupuleux des grilles, de la typographie et des micro-animations.",
+      techs: ["React 19", "TypeScript", "Tailwind CSS", "Framer Motion", "Vite"]
     },
     {
-      title: "Outils & Workflow",
-      skills: [
-        { name: "Git", icon: GitBranch, level: 80, color: "bg-orange-500" },
-        { name: "Vite", icon: Layers, level: 85, color: "bg-purple-500" },
-        { name: "Responsive Design", icon: Smartphone, level: 90, color: "bg-green-500" },
-        { name: "Web APIs", icon: Globe, level: 75, color: "bg-indigo-500" },
-      ]
+      index: "02",
+      icon: Server,
+      title: "Backend & Architectures APIs",
+      description:
+        "Conception de serveurs robustes, d'APIs RESTful sécurisées et de bases de données fiables pour propulser des applications complètes et pérennes.",
+      techs: ["Node.js", "Express", "Python", "PostgreSQL", "REST APIs"]
+    },
+    {
+      index: "03",
+      icon: Terminal,
+      title: "Workflow & Qualité de code",
+      description:
+        "Pratiques modernes de développement : code typé, architecture modulaire, contrôle de version rigoureux et optimisation des performances de chargement.",
+      techs: ["Git / GitHub", "Linux & Bash", "ESLint", "Responsive Web", "SEO"]
     }
   ];
 
   return (
-    <section className="section-padding bg-slate-50">
+    <section
+      id="about"
+      ref={sectionRef}
+      className="px-6 md:px-12 py-28 md:py-40 border-t border-[var(--border)] bg-[var(--bg)] relative overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-            Mes Compétences
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Technologies et outils que je maîtrise pour créer des applications web modernes et performantes.
-          </p>
-        </motion.div>
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+          <div>
+            <span className="reveal inline-block text-[11px] tracking-[0.2em] uppercase text-[var(--accent)] mb-4">
+              01 / À propos & Expertise
+            </span>
+            <h2 className="reveal reveal-delay-1 font-['Fraunces'] text-[clamp(36px,5vw,68px)] font-light text-[var(--white)] tracking-[-0.03em] leading-[1.05] max-w-2xl">
+              L'alliance du code robuste et de <em className="italic text-[var(--accent)]">l'élégance visuelle</em>.
+            </h2>
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {skillCategories.map((category, categoryIndex) => (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, x: categoryIndex === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-2xl p-8 shadow-lg"
+          <div className="reveal reveal-delay-2 max-w-md">
+            <p className="text-[var(--text-mid)] text-[13px] leading-[1.8] mb-6">
+              Je suis Manou, développeuse full-stack passionnée par la construction de produits web qui marient performance technique et expérience utilisateur sans compromis.
+            </p>
+            <Link
+              to="/about"
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.12em] text-[var(--accent)] hover:text-[var(--white)] transition-colors group"
             >
-              <h3 className="text-2xl font-bold text-slate-900 mb-8 text-center">
-                {category.title}
-              </h3>
-
-              <div className="space-y-6">
-                {category.skills.map((skill, skillIndex) => {
-                  const Icon = skill.icon;
-                  return (
-                    <motion.div
-                      key={skill.name}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: (categoryIndex * 0.2) + (skillIndex * 0.1) }}
-                      viewport={{ once: true }}
-                      className="space-y-3"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className={`p-2 rounded-lg ${skill.color} text-white`}>
-                          <Icon size={20} />
-                        </div>
-                        <span className="font-medium text-slate-900 flex-1">{skill.name}</span>
-                        <span className="text-sm text-gray-500">{skill.level}%</span>
-                      </div>
-
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          transition={{ duration: 1, delay: (categoryIndex * 0.2) + (skillIndex * 0.1) + 0.3 }}
-                          viewport={{ once: true }}
-                          className={`h-2 rounded-full ${skill.color}`}
-                        />
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          ))}
+              <span>Découvrir mon parcours complet</span>
+              <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+          </div>
         </div>
 
-        {/* Additional Skills Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-16"
-        >
-          <h3 className="text-2xl font-bold text-slate-900 mb-8 text-center">
-            Autres Technologies
-          </h3>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {[
-              { name: "HTML5", emoji: "🌐" },
-              { name: "CSS3", emoji: "🎨" },
-              { name: "Node.js", emoji: "🟢" },
-              { name: "Python", emoji: "🐍" },
-              { name: "C/C++", emoji: "⚡" },
-              { name: "Bash", emoji: "💻" }
-            ].map((tech, index) => (
-              <motion.div
-                key={tech.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 text-center group hover:scale-105"
+        {/* 3 Main Pillars Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+          {capabilities.map((cap, i) => {
+            const Icon = cap.icon;
+            return (
+              <div
+                key={cap.index}
+                className={`reveal reveal-delay-${i + 1} p-8 rounded-none border border-[var(--border)] bg-[var(--surface)] hover:border-[var(--accent2)] transition-all duration-300 flex flex-col justify-between group`}
               >
-                <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                  {tech.emoji}
+                <div>
+                  <div className="flex items-center justify-between mb-8 pb-4 border-b border-[var(--border)]">
+                    <span className="text-xs font-['DM_Mono'] text-[var(--accent)] font-medium">
+                      {cap.index}
+                    </span>
+                    <Icon size={18} className="text-[var(--text-dim)] group-hover:text-[var(--accent)] transition-colors" />
+                  </div>
+
+                  <h3 className="font-['Fraunces'] text-2xl text-[var(--white)] mb-4 font-normal">
+                    {cap.title}
+                  </h3>
+
+                  <p className="text-[var(--text-mid)] text-xs leading-[1.8] mb-8">
+                    {cap.description}
+                  </p>
                 </div>
-                <span className="text-sm font-medium text-gray-700">{tech.name}</span>
-              </motion.div>
-            ))}
+
+                <div className="flex flex-wrap gap-2 pt-4 border-t border-[var(--border)]">
+                  {cap.techs.map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-[10px] uppercase font-['DM_Mono'] tracking-wider px-2.5 py-1 bg-[var(--bg)] border border-[var(--border)] text-[var(--text-mid)]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Key Metrics / Snapshot */}
+        <div className="reveal reveal-delay-3 grid grid-cols-2 md:grid-cols-4 gap-6 p-8 border border-[var(--border)] bg-[rgba(17,17,17,0.5)]">
+          <div>
+            <span className="block font-['Fraunces'] text-3xl md:text-4xl text-[var(--white)] mb-1">
+              Full-Stack
+            </span>
+            <span className="text-[11px] font-['DM_Mono'] uppercase tracking-wider text-[var(--text-dim)]">
+              Architecture & UI
+            </span>
           </div>
-        </motion.div>
+
+          <div>
+            <span className="block font-['Fraunces'] text-3xl md:text-4xl text-[var(--accent)] mb-1">
+              React 19
+            </span>
+            <span className="text-[11px] font-['DM_Mono'] uppercase tracking-wider text-[var(--text-dim)]">
+              Écosystème moderne
+            </span>
+          </div>
+
+          <div>
+            <span className="block font-['Fraunces'] text-3xl md:text-4xl text-[var(--white)] mb-1">
+              100%
+            </span>
+            <span className="text-[11px] font-['DM_Mono'] uppercase tracking-wider text-[var(--text-dim)]">
+              Responsive & Optimisé
+            </span>
+          </div>
+
+          <div>
+            <span className="block font-['Fraunces'] text-3xl md:text-4xl text-[var(--accent)] mb-1">
+              Antananarivo
+            </span>
+            <span className="text-[11px] font-['DM_Mono'] uppercase tracking-wider text-[var(--text-dim)]">
+              Disponible en remote
+            </span>
+          </div>
+        </div>
       </div>
     </section>
   );
 };
 
 export default Skills;
-

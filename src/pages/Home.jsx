@@ -1,15 +1,15 @@
 import Hero from '../components/sections/Hero';
-import Projects from '../components/sections/FeaturedProjects';
-import About from '../components/sections/Skills';
-import Contact from '../components/sections/CallToAction';
+import Skills from '../components/sections/Skills';
+import FeaturedProjects from '../components/sections/FeaturedProjects';
+import CallToAction from '../components/sections/CallToAction';
 
 const Home = () => {
   return (
     <div className="bg-[var(--bg)]">
       <Hero />
-      {/* <About /> */}
-      {/* <Projects /> */}
-      <Contact />
+      <Skills />
+      <FeaturedProjects />
+      <CallToAction />
     </div>
   );
 };
